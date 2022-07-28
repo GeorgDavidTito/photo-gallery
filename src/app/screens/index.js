@@ -1,12 +1,10 @@
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import union from '../../assets/union.png'
 import Home from './Home';
-/* import Detail from './Detail';
-import Pilots from './Pilots';
-import Profile from './Profile'; */
+import Detail from './Detail';
 import { Text, Image, View, TouchableOpacity } from 'react-native';
 import styles from './styles';
+import union from '../../assets/union.png'
 
 const Title = (props)=> (
   <View  style={styles.titleContainer}>
@@ -36,26 +34,14 @@ const Screens = () => {
           headerTitle: props => <Title {...props} />
         }}
       />
-      {/* <Stack.Screen
+       <Stack.Screen
         name="Detail"
         component={Detail}
-        options={{
-          headerStyle: { backgroundColor: 'black' },
-          headerTitle: (
-            <Text
-              style={{
-                fontSize: 24,
-                color: 'rgb(255,232,31)',
-                textAlign: 'center',
-              }}>
-            </Text>
-          ),
-          headerTitleStyle: {
-            alignSelf: 'center',
-          },
-          headerTintColor: 'rgb(255,232,31)',
-        }}
+        options={({ navigation, route }) => ({
+          headerShown:false,
+        })}
       />
+      {/*
       <Stack.Screen
         name="Profile"
         component={Profile}
