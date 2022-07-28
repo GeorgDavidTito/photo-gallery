@@ -1,24 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import {
   FlatList,
-  TouchableOpacity,
-  View,
-  Image
+  View
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {getPhotos} from '../../../redux/photos/actions';
 import Photo from '../../components/Photo';
-
-/* import { getShips } from '../../../redux/ships/actions';
-import { useSelector, useDispatch } from 'react-redux';
-import Loading from '../../components/Loading'; */
+import Loading from '../../components/Loading'
 import styles from './styles';
 
 const Home = (props) => {
 
   const dispatch = useDispatch();
-  const { list:photos } = useSelector((state) => state?.photos);
+  const { list:photos, pageTotal } = useSelector((state) => state?.photos);
   const [feed, setFeed] = useState([]);
   const [page, setPage] = useState(1);
   const [viewable, setViewable] = useState([]);
@@ -26,36 +21,20 @@ const Home = (props) => {
   const [refreshing, setRefreshing] = useState(false);
   const { navigation } = props;
 
-  const renderItem = (props) => {
-    console.log('photos',props);
-
-    return (
-      <Photo  {...props} navigate={()=> navigation.navigate('Detail', { item: props.item })}/>
-/*       <View style={styles.itemContainer}>
-      <TouchableOpacity style={[styles.photoContainer, index%2!=0?{alignSelf:'flex-end'}: null ]}
-        onPress={() => props.navigation.navigate('Detail', { item })}>
-          <Image style={styles.image} source={{uri: item?.urls?.regular}}/>
-      </TouchableOpacity>
-      </View> */
-    );
-  };
-/*   
-
+  const renderItem = (props) => <Photo  {...props} navigate={()=> navigation.navigate('Detail', { item: props.item })}/>;
+  
   const loadPage = async (pageNumber = page, shouldRefresh = false) => {
     if (loading) {
       return;
     }
     setLoading(true);
-    const pageGlobal = next?.split('=');
-
-    if (pageNumber < Number(pageGlobal?.[1]) && !shouldRefresh) {
-      await dispatch(getShips(`?page=${pageGlobal?.[1]}`));
+    if (pageNumber < pageTotal && !shouldRefresh) {
+      await dispatch(getPhotos(pageNumber + 1));
     } else {
-      const data = ships?.slice(pageNumber * 10, pageNumber * 10 + 10);
+      const data = photos?.slice(pageNumber * 10, pageNumber * 10 + 10);
       setFeed((feed) => (shouldRefresh ? data : [...feed, ...data]));
     }
     setPage((page) => page + 1);
-
     setLoading(false);
   };
 
@@ -66,11 +45,7 @@ const Home = (props) => {
     loadPage(0, true);
     setRefreshing(false);
   };
-  const handleViewableChanged = useCallback(({ changed }) => {
-    setViewable(changed.map(({ item }) => item.id));
-  }, []);
 
-*/
   useEffect(() => {
     if (photos?.length > 0) {
       setFeed(photos);
@@ -88,20 +63,19 @@ const Home = (props) => {
            <FlatList
             key="photos"
             data={feed}
-            keyExtractor={(item) => item?.id}
+            keyExtractor={(item, index) => `${item?.id}  ${index}`}
             renderItem={renderItem}
             numColumns={2}
             horizontal={false} 
-            // onViewableItemsChanged={handleViewableChanged}
             viewabilityConfig={{
               viewAreaCoveragePercentThreshold: 15,
             }}
             showsVerticalScrollIndicator={false}
-/*             onRefresh={refreshList}
+            onRefresh={refreshList}
             refreshing={refreshing}
             onEndReachedThreshold={0.5}
             onEndReached={() => loadPage()} 
-            ListFooterComponent={loading && <Loading />}*/
+            ListFooterComponent={loading && <Loading />}
             initialNumToRender={8}
             maxToRenderPerBatch={2}
           />
