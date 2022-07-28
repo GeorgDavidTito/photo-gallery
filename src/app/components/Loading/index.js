@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import styles from './styles';
+import styles from '../Photo/styles';
 
 const Loading = () => (
   <View style={styles.container}>
