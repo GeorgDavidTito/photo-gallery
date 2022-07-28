@@ -22,8 +22,8 @@ export default StyleSheet.create({
   },
   descriptionContainer: {
     height:100,
-    borderBottomEndRadius:12,
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    borderBottomLeftRadius:12,
+    borderBottomRightRadius:12,
     justifyContent:'flex-end',
     display:'flex',
     paddingHorizontal:16
