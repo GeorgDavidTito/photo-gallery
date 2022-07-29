@@ -16,11 +16,11 @@ const navTheme = {
 const App = () => {
   return (
     <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-    <NavigationContainer theme={navTheme}>
-      <Screens />
-    </NavigationContainer>
-    </PersistGate>
+      <PersistGate loading={null} persistor={persistor}>
+        <NavigationContainer theme={navTheme}>
+          <Screens />
+        </NavigationContainer>
+      </PersistGate>
     </Provider>
   );
 };

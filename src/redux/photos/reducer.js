@@ -19,7 +19,7 @@ function images(state = initialState, action) {
       return {
         ...state,
         list: state.list?.concat(action?.data?.results),
-        pageTotal: action?.data.total/ 10,
+        pageTotal: action?.data.total / 10,
         currentPage: action?.data.currentPage + 1,
       };
     case actionTypes.FETCH_PHOTOS_ERROR:

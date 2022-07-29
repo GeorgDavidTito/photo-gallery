@@ -6,20 +6,14 @@ import styles from './styles';
 import Home from './Home';
 import Detail from './Detail';
 import Profile from './Profile';
-import union from '../../assets/union.png'
+import union from '../../assets/union.png';
 
-const Title = (props)=> (
-  <View  style={styles.titleContainer}>
-     <TouchableOpacity style={styles.imageContainer} >
-    <Image 
-    style={styles.image}
-    source={union}
-    />
+const Title = props => (
+  <View style={styles.titleContainer}>
+    <TouchableOpacity style={styles.imageContainer}>
+      <Image style={styles.image} source={union} />
     </TouchableOpacity>
-    <Text
-      style={styles.titleText}>
-        Discover
-    </Text>
+    <Text style={styles.titleText}>Discover</Text>
   </View>
 );
 
@@ -33,24 +27,24 @@ const Screens = () => {
         component={Home}
         options={{
           headerShadowVisible: false,
-          headerTitle: props => <Title {...props} />
+          headerTitle: props => <Title {...props} />,
         }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="Detail"
         component={Detail}
         options={({ navigation, route }) => ({
-          headerShown:false,
+          headerShown: false,
           cardStyleInterpolator: route.params?.withAnimation
-              ? CardStyleInterpolators.forHorizontalIOS
-              : CardStyleInterpolators.forNoAnimation,
+            ? CardStyleInterpolators.forHorizontalIOS
+            : CardStyleInterpolators.forNoAnimation,
         })}
       />
       <Stack.Screen
         name="Profile"
         component={Profile}
         options={{
-          headerShown:false,
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

@@ -14,7 +14,7 @@ const iReactotron = Reactotron.configure({ name: 'photoGallery' })
 
 const reducers = combineReducers({
   photos,
-  user
+  user,
 });
 
 const persistConfig = {

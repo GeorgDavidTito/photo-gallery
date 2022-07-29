@@ -11,5 +11,4 @@ const apiUnsplash = createApi({
   fetch: fetch,
 });
 
-
 export default apiUnsplash;

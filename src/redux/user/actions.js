@@ -37,16 +37,18 @@ function loadUserPhotosError(error) {
   };
 }
 
-export const getUserPhotos = (username, page=1) => async (dispatch) => {
-  dispatch(loadUserPhotosRequest());
-  try {
-    const response = await UnSplashServices.getUserPhotos(username,page);
-    if (response.status === 200) {
-      dispatch(loadUserPhotosSuccess(response?.response));
-    } else {
-      dispatch(loadUserPhotosError(response.error));
+export const getUserPhotos =
+  (username, page = 1) =>
+  async dispatch => {
+    dispatch(loadUserPhotosRequest());
+    try {
+      const response = await UnSplashServices.getUserPhotos(username, page);
+      if (response.status === 200) {
+        dispatch(loadUserPhotosSuccess(response?.response));
+      } else {
+        dispatch(loadUserPhotosError(response.error));
+      }
+    } catch (error) {
+      dispatch(loadUserPhotosError('No pudimos obtener la lista de fotos'));
     }
-  } catch (error) {
-    dispatch(loadUserPhotosError('No pudimos obtener la lista de fotos'));
-  }
-};
+  };
