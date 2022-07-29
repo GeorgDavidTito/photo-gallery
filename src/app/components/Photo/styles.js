@@ -18,15 +18,15 @@ export default StyleSheet.create({
     display:'flex',
     flex:1,
     resizeMode: 'contain',
-    justifyContent:'flex-end'
+    justifyContent:'flex-end',
   },
   descriptionContainer: {
-    height:100,
+    height:60,
     borderBottomLeftRadius:12,
     borderBottomRightRadius:12,
     justifyContent:'flex-end',
     display:'flex',
-    paddingHorizontal:16
+    padding:8
   },
   descriptionTitle:{
     padding:4,
