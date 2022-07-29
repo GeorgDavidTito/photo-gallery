@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, FlatList, View, Text } from 'react-native';
+import { SafeAreaView, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserPhotos } from '../../../redux/user/actions';
-import styles from './styles';
 import blackBack from '../../../assets/vector-black.png';
 import Back from '../../components/Back';
 import UserAvatar from '../../components/UserAvatar';
 import Photo from '../../components/Photo';
-import Loading from '../../components/Loading';
+import PhotoList from '../../components/PhotoList';
+import styles from './styles';
 
 const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -69,27 +69,14 @@ const Profile = ({ navigation }) => {
         description={selectedUser?.bio}
       />
       <Text style={styles.title}>My Photos</Text>
-      <View style={styles.listContainer}>
-        <FlatList
-          key="userPhotos"
-          data={feed}
-          keyExtractor={(item, index) => `${item?.id}  ${index}`}
-          renderItem={renderItem}
-          numColumns={2}
-          horizontal={false}
-          viewabilityConfig={{
-            viewAreaCoveragePercentThreshold: 15,
-          }}
-          showsVerticalScrollIndicator={false}
-          onRefresh={refreshList}
-          refreshing={refreshing}
-          onEndReachedThreshold={0.5}
-          onEndReached={() => loadPage()}
-          ListFooterComponent={loading && <Loading />}
-          initialNumToRender={8}
-          maxToRenderPerBatch={2}
-        />
-      </View>
+      <PhotoList
+        id="userPhotos"
+        feed={feed}
+        renderItem={renderItem}
+        refreshList={refreshList}
+        refreshing={refreshing}
+        loading={loading}
+      />
     </SafeAreaView>
   );
 };

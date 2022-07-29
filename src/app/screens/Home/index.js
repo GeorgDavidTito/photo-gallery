@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPhotos } from '../../../redux/photos/actions';
 import Photo from '../../components/Photo';
-import Loading from '../../components/Loading';
-import styles from './styles';
+import PhotoList from '../../components/PhotoList';
 
 const Home = props => {
   const dispatch = useDispatch();
   const { list: photos, pageTotal } = useSelector(state => state?.photos);
   const [feed, setFeed] = useState([]);
   const [page, setPage] = useState(1);
-  const [viewable, setViewable] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const { navigation } = props;
@@ -61,27 +58,14 @@ const Home = props => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        key="photos"
-        data={feed}
-        keyExtractor={(item, index) => `${item?.id}  ${index}`}
-        renderItem={renderItem}
-        numColumns={2}
-        horizontal={false}
-        viewabilityConfig={{
-          viewAreaCoveragePercentThreshold: 15,
-        }}
-        showsVerticalScrollIndicator={false}
-        onRefresh={refreshList}
-        refreshing={refreshing}
-        onEndReachedThreshold={0.5}
-        onEndReached={() => loadPage()}
-        ListFooterComponent={loading && <Loading />}
-        initialNumToRender={8}
-        maxToRenderPerBatch={2}
-      />
-    </View>
+    <PhotoList
+      id={'photos'}
+      feed={feed}
+      renderItem={renderItem}
+      refreshList={refreshList}
+      refreshing={refreshing}
+      loading={loading}
+    />
   );
 };
 
