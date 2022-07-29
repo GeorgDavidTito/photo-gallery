@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from './Home';
-import Detail from './Detail';
+import { CardStyleInterpolators } from '@react-navigation/stack';
 import { Text, Image, View, TouchableOpacity } from 'react-native';
 import styles from './styles';
+import Home from './Home';
+import Detail from './Detail';
+import Profile from './Profile';
 import union from '../../assets/union.png'
 
 const Title = (props)=> (
@@ -39,29 +41,18 @@ const Screens = () => {
         component={Detail}
         options={({ navigation, route }) => ({
           headerShown:false,
+          cardStyleInterpolator: route.params?.withAnimation
+              ? CardStyleInterpolators.forHorizontalIOS
+              : CardStyleInterpolators.forNoAnimation,
         })}
       />
-      {/*
       <Stack.Screen
         name="Profile"
         component={Profile}
         options={{
-          headerStyle: { backgroundColor: 'black' },
-          headerTitle: (
-            <Text
-              style={{
-                fontSize: 24,
-                color: 'rgb(255,232,31)',
-                textAlign: 'center',
-              }}>
-            </Text>
-          ),
-          headerTitleStyle: {
-            alignSelf: 'center',
-          },
-          headerTintColor: 'rgb(255,232,31)',
+          headerShown:false,
         }}
-      /> */}
+      />
     </Stack.Navigator>
   );
 };
