@@ -6,6 +6,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import photos from './photos/reducer';
+import user from './user/reducer';
 
 const iReactotron = Reactotron.configure({ name: 'photoGallery' })
   .use(reactotronRedux())
@@ -13,6 +14,7 @@ const iReactotron = Reactotron.configure({ name: 'photoGallery' })
 
 const reducers = combineReducers({
   photos,
+  user
 });
 
 const persistConfig = {

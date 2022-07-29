@@ -2,8 +2,8 @@ import { actionTypes } from './actions';
 
 const initialState = {
   list: [],
-  count: null,
-  next: null,
+  pageTotal: 0,
+  currentPage: 0,
 };
 
 function images(state = initialState, action) {
@@ -12,23 +12,18 @@ function images(state = initialState, action) {
       return {
         ...state,
         list: [],
+        pageTotal: 0,
+        currentPage: 0,
       };
     case actionTypes.FETCH_PHOTOS_SUCCESS:
       return {
         ...state,
-        list: state.list?.concat(action?.data),
-        count: action?.data.count,
-        next: action?.data.next,
+        list: state.list?.concat(action?.data?.results),
+        pageTotal: action?.data.total/ 10,
+        currentPage: action?.data.currentPage + 1,
       };
     case actionTypes.FETCH_PHOTOS_ERROR:
       return { ...state };
-    case actionTypes.FETCH_SEARCH_SUCCESS:
-      return {
-        ...state,
-        list: action?.data,
-      };
-    case actionTypes.FETCH_SEARCH_ERROR:
-      return { ...state, searchSuccess: null };
     default:
       return state;
   }
