@@ -76,6 +76,7 @@ const Profile = ({ navigation }) => {
         refreshList={refreshList}
         refreshing={refreshing}
         loading={loading}
+        loadPage={loadPage}
       />
     </SafeAreaView>
   );

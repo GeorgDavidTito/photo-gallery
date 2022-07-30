@@ -65,6 +65,7 @@ const Home = props => {
       refreshList={refreshList}
       refreshing={refreshing}
       loading={loading}
+      loadPage={loadPage}
     />
   );
 };
