@@ -26,8 +26,7 @@ const Title = props => {
 
 const renderHeader = props => {
   let navegState = props.navigation.getState()?.routes[0]?.state;
-
-  return navegState?.routeNames[navegState.index] === 'Home' ? (
+  return !navegState || navegState?.routeNames[navegState.index] === 'Home' ? (
     <Title {...props} />
   ) : null;
 };

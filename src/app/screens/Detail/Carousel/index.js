@@ -1,17 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Dimensions, FlatList, Animated } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
+import React from 'react';
+import { FlatList, Animated, useWindowDimensions, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { setSelectedUser } from '../../../../redux/user/actions';
 import PhotoBackground from '../PhotoBackground';
 
-const { width } = Dimensions.get('window');
-
 const Carousel = ({ data, ...props }) => {
-  const scrollX = new Animated.Value(0);
-  const flatListRef = useRef();
-
+  const scrollY = new Animated.Value(0);
   const dispatch = useDispatch();
-  const { list: photos, pageTotal } = useSelector(state => state?.photos);
+  const { width } = useWindowDimensions();
+
   const getItemLayout = (_, index) => {
     return { length: width, offset: width * index, index };
   };
@@ -19,6 +16,16 @@ const Carousel = ({ data, ...props }) => {
     dispatch(setSelectedUser(item?.user));
     props.navigation.navigate('Profile');
   };
+
+  const renderItem = ({ item, index }) => (
+    <View style={{ width: width }} key={index}>
+      <PhotoBackground
+        item={item}
+        goTo={() => handleGoTo(item)}
+        goBack={() => props.navigation.goBack()}
+      />
+    </View>
+  );
 
   return (
     <FlatList
@@ -33,16 +40,20 @@ const Carousel = ({ data, ...props }) => {
       decelerationRate={'fast'}
       showsHorizontalScrollIndicator={false}
       getItemLayout={getItemLayout}
-      renderItem={({ item }) => (
-        <PhotoBackground
-          item={item}
-          goTo={() => handleGoTo(item)}
-          goBack={() => props.navigation.goBack()}
-        />
+      renderItem={renderItem}
+      onScroll={Animated.event(
+        [
+          {
+            nativeEvent: {
+              contentOffset: {
+                y: scrollY,
+              },
+            },
+          },
+        ],
+        { useNativeDriver: false },
       )}
-      /*                     onScroll={Animated.event(
-                        [{ nativeEvent: { contentOffset: { x: scrollX } } }]
-                    )} */
+      scrollEventThrottle={1}
       showsVerticalScrollIndicator={false}
       onEndReachedThreshold={0.5}
       /*
@@ -51,7 +62,7 @@ const Carousel = ({ data, ...props }) => {
                     onEndReached={() => loadPage()} 
                     ListFooterComponent={loading && <Loading />} */
       initialNumToRender={1}
-      maxToRenderPerBatch={1}
+      maxToRenderPerBatch={2}
     />
   );
 };

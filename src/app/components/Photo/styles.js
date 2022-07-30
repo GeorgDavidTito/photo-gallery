@@ -21,7 +21,7 @@ export default StyleSheet.create({
     justifyContent: 'flex-end',
   },
   descriptionContainer: {
-    height: 60,
+    height: 80,
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
     justifyContent: 'flex-end',

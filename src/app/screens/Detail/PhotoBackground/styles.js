@@ -5,8 +5,7 @@ export default StyleSheet.create({
   imageBackground: {
     flex: 1,
     justifyContent: 'flex-end',
-    width: width,
-    height: height,
+    overflow: 'hidden',
   },
   descriptionContainer: {
     paddingHorizontal: 24,
