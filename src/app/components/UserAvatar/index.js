@@ -26,7 +26,6 @@ const Content = ({
     <View style={styles.descriptionContainer}>
       <Text style={[styles.name, nameStyle]}>{name}</Text>
       <Text style={[styles.description, descriptionStyle]}>
-        {' '}
         {description || 'View Profile'}
       </Text>
     </View>

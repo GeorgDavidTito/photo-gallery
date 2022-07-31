@@ -7,16 +7,16 @@ import Back from '../../components/Back';
 import UserAvatar from '../../components/UserAvatar';
 import Photo from '../../components/Photo';
 import PhotoList from '../../components/PhotoList';
+import RotateInView from '../../components/RotateInView';
 import styles from './styles';
+import FadeInView from '../../components/FadeInView';
 
 const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
   const { goBack } = navigation;
-  //const { item } = props.route.params;
   const { selectedUser, photos, pageTotal } = useSelector(state => state?.user);
   const [feed, setFeed] = useState([]);
   const [page, setPage] = useState(1);
-  const [viewable, setViewable] = useState([]);
   const [loading, setLoading] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -56,19 +56,24 @@ const Profile = ({ navigation }) => {
       dispatch(getUserPhotos(selectedUser?.username));
     }
   }, []);
+  console.log('profile', selectedUser);
 
   return (
     <SafeAreaView style={styles.container}>
       <Back goBack={goBack} imageSource={blackBack} />
-      <UserAvatar
-        avatarSize={80}
-        imageSource={{ uri: selectedUser?.profile_image?.small }}
-        name={selectedUser?.name}
-        nameStyle={styles.titleStyle}
-        descriptionStyle={styles.descriptionStyle}
-        description={selectedUser?.bio}
-      />
-      <Text style={styles.title}>My Photos</Text>
+      <RotateInView containerStyle={{ height: 100, marginTop: 70 }}>
+        <UserAvatar
+          avatarSize={80}
+          imageSource={{ uri: selectedUser?.profile_image?.small }}
+          name={selectedUser?.name}
+          nameStyle={styles.titleStyle}
+          descriptionStyle={styles.descriptionStyle}
+          description={selectedUser?.bio || ' '}
+        />
+      </RotateInView>
+      <FadeInView>
+        <Text style={styles.title}>My Photos</Text>
+      </FadeInView>
       <PhotoList
         id="userPhotos"
         feed={feed}

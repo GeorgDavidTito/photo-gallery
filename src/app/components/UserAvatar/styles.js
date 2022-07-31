@@ -6,7 +6,6 @@ export default StyleSheet.create({
   },
   viewContainer: {
     flexDirection: 'row',
-    marginTop: 70,
     paddingHorizontal: 16,
   },
   descriptionContainer: {
