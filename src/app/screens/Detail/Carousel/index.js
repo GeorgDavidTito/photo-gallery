@@ -3,8 +3,16 @@ import { FlatList, Animated, useWindowDimensions, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { setSelectedUser } from '../../../../redux/user/actions';
 import PhotoBackground from '../PhotoBackground';
+import Loading from '../../../components/Loading';
 
-const Carousel = ({ data, ...props }) => {
+const Carousel = ({
+  data,
+  refreshList,
+  refreshing,
+  loadPage,
+  loading,
+  ...props
+}) => {
   const scrollY = new Animated.Value(0);
   const dispatch = useDispatch();
   const { width } = useWindowDimensions();
@@ -56,11 +64,10 @@ const Carousel = ({ data, ...props }) => {
       scrollEventThrottle={1}
       showsVerticalScrollIndicator={false}
       onEndReachedThreshold={0.5}
-      /*
-                    onRefresh={refreshList}
-                    refreshing={refreshing}
-                    onEndReached={() => loadPage()} 
-                    ListFooterComponent={loading && <Loading />} */
+      onRefresh={refreshList}
+      refreshing={refreshing}
+      onEndReached={() => loadPage()}
+      ListFooterComponent={loading && <Loading />}
       initialNumToRender={1}
       maxToRenderPerBatch={2}
     />
